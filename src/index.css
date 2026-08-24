@@ -1,0 +1,273 @@
+:root {
+  --deep-ocean: #0B192C;
+  --teal-wave: #00b4d8;
+  --cyan-foam: #90e0ef;
+  --ice-white: #caf0f8;
+}
+
+body {
+  background-color: var(--deep-ocean);
+  color: var(--ice-white);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+}
+
+/* Sticky, Glass-like Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 1.5rem 3rem;
+  background-color: rgba(11, 25, 44, 0.85);
+  border-bottom: 1px solid var(--teal-wave);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  backdrop-filter: blur(10px);
+}
+
+.logo h2 {
+  margin: 0;
+  color: var(--teal-wave);
+  letter-spacing: 2px;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+  margin: 0;
+  align-items: center;
+}
+
+.nav-links a {
+  color: var(--ice-white);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: var(--cyan-foam);
+}
+
+.section {
+  padding: 4rem 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+h2 {
+  color: var(--teal-wave);
+  border-bottom: 2px solid var(--cyan-foam);
+  padding-bottom: 0.5rem;
+  display: inline-block;
+}
+
+/* Skills Badges with Hover Effect */
+.skills-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.skill-badge {
+  background-color: rgba(0, 180, 216, 0.1);
+  border: 1px solid var(--teal-wave);
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  color: var(--cyan-foam);
+  transition: all 0.3s ease;
+  cursor: default;
+}
+
+.skill-badge:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgba(0, 180, 216, 0.3);
+  background-color: var(--teal-wave);
+  color: var(--deep-ocean);
+  font-weight: bold;
+}
+
+/* Project Cards with Floating Hover Effect */
+.project-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+@media (max-width: 768px) {
+  .project-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+.project-card {
+  background-color: rgba(0, 180, 216, 0.05);
+  border: 1px solid var(--teal-wave);
+  padding: 1.5rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 180, 216, 0.15);
+  border-color: var(--cyan-foam);
+}
+
+.project-card h3 {
+  margin-top: 0;
+  color: var(--ice-white);
+}
+
+/* Technology Pills inside Projects */
+.tech-stack {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+.tech-pill {
+  font-size: 0.8rem;
+  background-color: var(--deep-ocean);
+  border: 1px solid var(--cyan-foam);
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  color: var(--cyan-foam);
+}
+
+/* Resume Section & Card */
+.center-content {
+  text-align: center;
+}
+
+.resume-card {
+  background: linear-gradient(145deg, rgba(0, 180, 216, 0.05), rgba(11, 25, 44, 0.8));
+  border: 1px dashed var(--cyan-foam);
+  padding: 3rem 2rem;
+  border-radius: 12px;
+  max-width: 500px;
+  margin: 2rem auto 0;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.resume-card h3 {
+  color: var(--ice-white);
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+/* Buttons */
+.btn-view-resume {
+  display: inline-block;
+  background-color: var(--teal-wave);
+  color: var(--deep-ocean);
+  padding: 0.75rem 1.5rem;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 4px;
+  margin-top: 1.5rem;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-view-resume:hover {
+  background-color: var(--cyan-foam);
+  transform: scale(1.05);
+}
+
+/* Footer & Social Links */
+.footer {
+  text-align: center;
+  padding: 2rem;
+  border-top: 1px solid var(--teal-wave);
+  margin-top: 2rem;
+  color: var(--cyan-foam);
+  font-size: 0.9rem;
+}
+
+.social-links {
+  margin-top: 1rem;
+}
+
+.social-links a {
+  color: var(--teal-wave);
+  margin: 0 1rem;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1.1rem;
+  transition: color 0.3s ease;
+}
+
+.social-links a:hover {
+  color: var(--ice-white);
+}
+
+
+/* --- Footer & Contact Blocks --- */
+.footer {
+  text-align: center;
+  padding: 3rem 2rem 2rem;
+  border-top: 1px solid var(--teal-wave);
+  margin-top: 4rem;
+  background-color: rgba(11, 25, 44, 0.5);
+}
+
+.footer h3 {
+  color: var(--teal-wave);
+  margin-top: 0;
+  margin-bottom: 2rem;
+  font-size: 1.8rem;
+}
+
+.contact-blocks-container {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap; /* Keeps them looking good on mobile */
+}
+
+.contact-block {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.8rem 1.5rem;
+  background-color: rgba(0, 180, 216, 0.05);
+  border: 1px solid var(--teal-wave);
+  border-radius: 12px; /* Creates the block shape */
+  color: var(--ice-white);
+  text-decoration: none;
+  font-weight: 600;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+}
+
+.contact-block svg {
+  width: 22px;
+  height: 22px;
+  fill: var(--teal-wave);
+  transition: all 0.3s ease;
+}
+
+/* The block float effect */
+.contact-block:hover {
+  transform: translateY(-8px);
+  background-color: rgba(0, 180, 216, 0.15);
+  box-shadow: 0 10px 20px rgba(0, 180, 216, 0.2);
+  border-color: var(--cyan-foam);
+  color: var(--cyan-foam);
+}
+
+.contact-block:hover svg {
+  fill: var(--cyan-foam);
+}
+
+.footer-copyright {
+  color: var(--cyan-foam);
+  font-size: 0.9rem;
+  margin: 0;
+  opacity: 0.7;
+}
