@@ -3,11 +3,11 @@ import { useNavigate, Link } from 'react-router-dom';
 import { api } from '../services/api';
 import '../admin.css';
 
-const AdminDashboard = () => {
+const AdminDashboard = ({ defaultTab = 'resume' }) => {
   const navigate = useNavigate();
 
-  // State
-  const [activeTab, setActiveTab] = useState('projects'); // 'projects' | 'resume' | 'settings'
+  // State - default to 'resume' tab
+  const [activeTab, setActiveTab] = useState(defaultTab); // 'resume' | 'projects' | 'settings'
   const [projects, setProjects] = useState([]);
   const [loadingProjects, setLoadingProjects] = useState(true);
   const [feedback, setFeedback] = useState({ type: '', message: '' });
@@ -73,10 +73,9 @@ const AdminDashboard = () => {
     fetchResumeInfo();
   }, [fetchProjects, fetchResumeInfo]);
 
-  // Handle Logout
+  // Handle Back to Portfolio
   const handleLogout = () => {
-    api.logout();
-    navigate('/admin/login');
+    navigate('/');
   };
 
   // Handle Project Form Submission (Add or Update)
@@ -226,10 +225,10 @@ const AdminDashboard = () => {
       <header className="admin-nav">
         <div className="admin-nav-brand">
           <h2>Shivani's Portfolio Admin</h2>
-          <span className="admin-badge">Secure Console</span>
+          <span className="admin-badge">Resume & Project Manager</span>
         </div>
         <div className="admin-nav-actions">
-          <Link to="/" className="btn-secondary" target="_blank" rel="noopener noreferrer">
+          <Link to="/" className="btn-secondary">
             <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
               <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
             </svg>
@@ -237,9 +236,9 @@ const AdminDashboard = () => {
           </Link>
           <button onClick={handleLogout} className="btn-logout">
             <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
-              <path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/>
+              <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
             </svg>
-            Logout
+            Back to Portfolio
           </button>
         </div>
       </header>
@@ -254,6 +253,15 @@ const AdminDashboard = () => {
       {/* Tab Navigation */}
       <div className="admin-tabs">
         <button
+          className={`tab-btn ${activeTab === 'resume' ? 'active' : ''}`}
+          onClick={() => setActiveTab('resume')}
+        >
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+            <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
+          </svg>
+          📄 Resume Manager
+        </button>
+        <button
           className={`tab-btn ${activeTab === 'projects' ? 'active' : ''}`}
           onClick={() => setActiveTab('projects')}
         >
@@ -261,15 +269,6 @@ const AdminDashboard = () => {
             <path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12z"/>
           </svg>
           Manage Projects ({projects.length})
-        </button>
-        <button
-          className={`tab-btn ${activeTab === 'resume' ? 'active' : ''}`}
-          onClick={() => setActiveTab('resume')}
-        >
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
-            <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
-          </svg>
-          Resume Manager
         </button>
         <button
           className={`tab-btn ${activeTab === 'settings' ? 'active' : ''}`}
@@ -471,7 +470,11 @@ const AdminDashboard = () => {
                       <p><strong>Last Updated:</strong> {new Date(resumeInfo.updatedAt).toLocaleString()}</p>
                     )}
                     <a
-                      href={`${process.env.REACT_APP_API_URL || 'http://localhost:5000/api'}/resume/download`}
+                      href={
+                        resumeInfo.downloadUrl && !resumeInfo.downloadUrl.startsWith('/api')
+                          ? resumeInfo.downloadUrl
+                          : `${(process.env.REACT_APP_API_URL || 'http://localhost:5000/api').replace('/api', '')}${resumeInfo.downloadUrl || '/api/resume/download'}`
+                      }
                       target="_blank"
                       rel="noreferrer"
                       className="btn-secondary"

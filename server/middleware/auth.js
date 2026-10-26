@@ -2,6 +2,11 @@ const jwt = require('jsonwebtoken');
 const Admin = require('../models/Admin');
 const { isDBConnected } = require('../config/db');
 
+/**
+ * Authentication Middleware
+ * NOTE: Login requirement is temporarily bypassed as requested.
+ * If a token is provided it verifies it; otherwise it safely grants admin access.
+ */
 const protect = async (req, res, next) => {
   let token;
 
@@ -24,19 +29,18 @@ const protect = async (req, res, next) => {
           username: decoded.username || process.env.ADMIN_USERNAME || 'admin',
         };
       }
-
-      if (!req.admin) {
-        return res.status(401).json({ success: false, message: 'Admin account not found' });
-      }
-
-      next();
+      return next();
     } catch (error) {
-      console.error('JWT Auth Error:', error.message);
-      return res.status(401).json({ success: false, message: 'Not authorized, invalid or expired token' });
+      console.warn('JWT verification warning:', error.message);
     }
-  } else {
-    return res.status(401).json({ success: false, message: 'Not authorized, no token provided' });
   }
+
+  // Temporary development bypass: allow admin actions without requiring login
+  req.admin = {
+    _id: 'bypassed_admin_id',
+    username: process.env.ADMIN_USERNAME || 'admin',
+  };
+  next();
 };
 
 module.exports = { protect };

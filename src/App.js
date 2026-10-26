@@ -225,7 +225,7 @@ const Footer = () => (
           onMouseEnter={(e) => e.target.style.opacity = '1'}
           onMouseLeave={(e) => e.target.style.opacity = '0.6'}
         >
-          Admin Portal 🔒
+          Admin Portal 📄
         </Link>
       </div>
     </div>
@@ -254,12 +254,13 @@ const App = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<PortfolioHome />} />
-        <Route path="/admin/login" element={<AdminLogin />} />
+        {/* Login bypassed: redirect login straight to admin resume editor */}
+        <Route path="/admin/login" element={<Navigate to="/admin" replace />} />
         <Route
           path="/admin"
           element={
             <ProtectedRoute>
-              <AdminDashboard />
+              <AdminDashboard defaultTab="resume" />
             </ProtectedRoute>
           }
         />
